@@ -3,6 +3,7 @@ import Login from './components/Login.jsx';
 import CalendarView from './components/CalendarView.jsx';
 import AdminPanel from './components/AdminPanel.jsx';
 import ReservationModal from './components/ReservationModal.jsx';
+import StatsView from './components/StatsView.jsx';
 
 const API = '/api';
 
@@ -14,6 +15,7 @@ export default function App() {
   const [membres, setMembres] = useState([]);
   const [reservations, setReservations] = useState([]);
   const [showAdmin, setShowAdmin] = useState(false);
+  const [showStats, setShowStats] = useState(false);
   const [modal, setModal] = useState(null); // { reservation, defaultDebut, defaultFin }
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -48,6 +50,7 @@ export default function App() {
     setSession(null);
     sessionStorage.removeItem('session');
     setShowAdmin(false);
+    setShowStats(false);
   };
 
   const openCreate = (defaultDebut = null, defaultFin = null) => {
@@ -154,8 +157,11 @@ export default function App() {
         </div>
         <div className="header-right">
           <span className="user-badge">{session.nom}{session.isAdmin && ' 👑'}</span>
+          <button className="btn btn-secondary" onClick={() => { setShowStats(!showStats); setShowAdmin(false); }}>
+            {showStats ? '📅 Calendrier' : '📊 Stats'}
+          </button>
           {session.isAdmin && (
-            <button className="btn btn-secondary" onClick={() => setShowAdmin(!showAdmin)}>
+            <button className="btn btn-secondary" onClick={() => { setShowAdmin(!showAdmin); setShowStats(false); }}>
               {showAdmin ? '📅 Calendrier' : '⚙️ Admin'}
             </button>
           )}
@@ -179,6 +185,8 @@ export default function App() {
           onUpdateMembres={handleUpdateMembres}
           onDeletePast={handleDeletePast}
         />
+      ) : showStats ? (
+        <StatsView reservations={reservations} membres={membres} />
       ) : (
         <CalendarView
           reservations={reservations}
