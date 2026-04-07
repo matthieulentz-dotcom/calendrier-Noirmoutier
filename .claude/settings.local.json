@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run:*)",
+      "Bash(cmd.exe /c \"npm run install-all\")",
+      "Bash(cmd.exe /c \"cd \"\"C:\\\\Users\\\\admin\\\\Desktop\\\\CLAUDE COWORK\\\\Projets\\\\calendrier partagz noirmoutier\"\" && npm run install-all\")",
+      "Bash(cmd.exe /c \"node --version & npm --version\")",
+      "Bash(cmd.exe /c \"where node\")",
+      "Bash(powershell.exe -Command \"Get-Command node -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Source; node --version; npm --version\")",
+      "Bash(npm install:*)",
+      "Bash(npm start:*)"
+    ]
+  }
+}
